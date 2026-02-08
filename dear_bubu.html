@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-light: #ffe4ec;
+    --pink-mid: #ffb6c8;
+    --pink-deep: #ff6b95;
+    --pink-hot: #ff2d6f;
+    --brown-bubu: #8B6347;
+    --white-dudu: #f5f0eb;
+    --bg: #fff0f5;
+    --heart-red: #ff4477;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+    background: var(--bg);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Floating hearts background */
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .floating-heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.15;
+    animation: floatUp linear infinite;
+    color: var(--pink-deep);
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg) scale(1); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(0.5); opacity: 0; }
+  }
+
+  /* Main card */
+  .card {
+    position: relative;
+    z-index: 10;
+    background: white;
+    border-radius: 32px;
+    padding: 48px 56px 40px;
+    text-align: center;
+    box-shadow:
+      0 4px 24px rgba(255, 107, 149, 0.15),
+      0 12px 64px rgba(255, 107, 149, 0.1);
+    max-width: 520px;
+    width: 90vw;
+    animation: cardEntry 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    border: 2px solid var(--pink-light);
+  }
+
+  @keyframes cardEntry {
+    from { opacity: 0; transform: translateY(40px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Bubu and Dudu SVG characters */
+  .characters {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 24px;
+    animation: charBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes charBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .character {
+    position: relative;
+  }
+
+  /* Bubu - Brown bear */
+  .bubu-body {
+    width: 100px;
+    height: 110px;
+    background: var(--brown-bubu);
+    border-radius: 45px 45px 40px 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bubu-ear {
+    width: 28px;
+    height: 28px;
+    background: var(--brown-bubu);
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+  }
+  .bubu-ear.left { left: 8px; }
+  .bubu-ear.right { right: 8px; }
+
+  .bubu-ear-inner {
+    width: 16px;
+    height: 16px;
+    background: #a07858;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+
+  .bubu-face {
+    width: 70px;
+    height: 55px;
+    background: #a07858;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bubu-eyes {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 4px;
+  }
+
+  .bubu-eye {
+    width: 6px;
+    height: 6px;
+    background: #333;
+    border-radius: 50%;
+  }
+
+  .bubu-mouth {
+    width: 8px;
+    height: 4px;
+    border-bottom: 2px solid #333;
+    border-radius: 0 0 50% 50%;
+  }
+
+  .bubu-blush {
+    width: 14px;
+    height: 8px;
+    background: rgba(255, 130, 150, 0.5);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 28px;
+  }
+  .bubu-blush.left { left: 10px; }
+  .bubu-blush.right { right: 10px; }
+
+  /* Dudu - White bear */
+  .dudu-body {
+    width: 100px;
+    height: 110px;
+    background: var(--white-dudu);
+    border-radius: 45px 45px 40px 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #e8ddd5;
+  }
+
+  .dudu-ear {
+    width: 28px;
+    height: 28px;
+    background: var(--white-dudu);
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    border: 1.5px solid #e8ddd5;
+  }
+  .dudu-ear.left { left: 8px; }
+  .dudu-ear.right { right: 8px; }
+
+  .dudu-ear-inner {
+    width: 16px;
+    height: 16px;
+    background: #ffc4d0;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  .dudu-face {
+    position: absolute;
+    bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dudu-eyes {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 4px;
+  }
+
+  .dudu-eye {
+    width: 6px;
+    height: 6px;
+    background: #333;
+    border-radius: 50%;
+  }
+
+  .dudu-mouth {
+    width: 8px;
+    height: 4px;
+    border-bottom: 2px solid #333;
+    border-radius: 0 0 50% 50%;
+  }
+
+  .dudu-blush {
+    width: 14px;
+    height: 8px;
+    background: rgba(255, 130, 150, 0.5);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 28px;
+  }
+  .dudu-blush.left { left: 10px; }
+  .dudu-blush.right { right: 10px; }
+
+  /* Heart between them */
+  .heart-between {
+    font-size: 28px;
+    animation: heartPulse 1s ease-in-out infinite;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 2px 4px rgba(255, 68, 119, 0.3));
+  }
+
+  @keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* Title */
+  .title {
+    font-family: 'Sacramento', cursive;
+    font-size: 52px;
+    color: var(--pink-hot);
+    margin-bottom: 8px;
+    line-height: 1.2;
+    text-shadow: 0 2px 8px rgba(255, 45, 111, 0.15);
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #c88;
+    margin-bottom: 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* Buttons */
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    min-height: 80px;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 20px rgba(255, 45, 111, 0.35);
+    white-space: nowrap;
+  }
+
+  .btn-yes:hover {
+    box-shadow: 0 6px 28px rgba(255, 45, 111, 0.5);
+    filter: brightness(1.05);
+  }
+
+  .btn-no {
+    background: white;
+    color: #999;
+    border: 2px solid #e0d0d5;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-no:hover {
+    border-color: #cbb;
+    color: #888;
+  }
+
+  /* No click counter */
+  .no-counter {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #caa;
+    min-height: 20px;
+    transition: all 0.3s ease;
+  }
+
+  /* Success state */
+  .success-screen {
+    display: none;
+    text-align: center;
+    animation: cardEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .success-screen .characters {
+    animation: charBounce 1s ease-in-out infinite;
+  }
+
+  .success-title {
+    font-family: 'Sacramento', cursive;
+    font-size: 56px;
+    color: var(--pink-hot);
+    margin-bottom: 12px;
+    text-shadow: 0 2px 8px rgba(255, 45, 111, 0.15);
+  }
+
+  .success-subtitle {
+    font-size: 18px;
+    color: #c88;
+    font-weight: 600;
+  }
+
+  .success-hearts {
+    font-size: 40px;
+    margin-top: 16px;
+    animation: heartPulse 0.8s ease-in-out infinite;
+  }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    z-index: 100;
+    pointer-events: none;
+    animation: confettiFall linear forwards;
+  }
+
+  @keyframes confettiFall {
+    0% { transform: translateY(-20vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Cute messages on no */
+  .cute-message {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--pink-deep);
+    font-weight: 600;
+    min-height: 22px;
+    animation: msgPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes msgPop {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsBg"></div>
+
+<div class="card">
+  <!-- Proposal Screen -->
+  <div id="proposalScreen">
+    <div class="characters">
+      <!-- Bubu (brown bear) -->
+      <div class="character">
+        <div class="bubu-body">
+          <div class="bubu-ear left"><div class="bubu-ear-inner"></div></div>
+          <div class="bubu-ear right"><div class="bubu-ear-inner"></div></div>
+          <div class="bubu-blush left"></div>
+          <div class="bubu-blush right"></div>
+          <div class="bubu-face">
+            <div class="bubu-eyes">
+              <div class="bubu-eye"></div>
+              <div class="bubu-eye"></div>
+            </div>
+            <div class="bubu-mouth"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heart -->
+      <div class="heart-between">❤️</div>
+
+      <!-- Dudu (white bear) -->
+      <div class="character">
+        <div class="dudu-body">
+          <div class="dudu-ear left"><div class="dudu-ear-inner"></div></div>
+          <div class="dudu-ear right"><div class="dudu-ear-inner"></div></div>
+          <div class="dudu-blush left"></div>
+          <div class="dudu-blush right"></div>
+          <div class="dudu-face">
+            <div class="dudu-eyes">
+              <div class="dudu-eye"></div>
+              <div class="dudu-eye"></div>
+            </div>
+            <div class="dudu-mouth"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="title">Will you be my Valentine?</div>
+    <div class="subtitle">~ Dudu is waiting for your answer ~</div>
+
+    <div class="buttons">
+      <button class="btn-yes" id="btnYes" onclick="sayYes()">Yes! 💕</button>
+      <button class="btn-no" id="btnNo" onclick="sayNo()">No</button>
+    </div>
+
+    <div class="cute-message" id="cuteMessage"></div>
+    <div class="no-counter" id="noCounter"></div>
+  </div>
+
+  <!-- Success Screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="characters">
+      <div class="character">
+        <div class="bubu-body">
+          <div class="bubu-ear left"><div class="bubu-ear-inner"></div></div>
+          <div class="bubu-ear right"><div class="bubu-ear-inner"></div></div>
+          <div class="bubu-blush left"></div>
+          <div class="bubu-blush right"></div>
+          <div class="bubu-face">
+            <div class="bubu-eyes">
+              <div class="bubu-eye"></div>
+              <div class="bubu-eye"></div>
+            </div>
+            <div class="bubu-mouth"></div>
+          </div>
+        </div>
+      </div>
+      <div class="heart-between">💖</div>
+      <div class="character">
+        <div class="dudu-body">
+          <div class="dudu-ear left"><div class="dudu-ear-inner"></div></div>
+          <div class="dudu-ear right"><div class="dudu-ear-inner"></div></div>
+          <div class="dudu-blush left"></div>
+          <div class="dudu-blush right"></div>
+          <div class="dudu-face">
+            <div class="dudu-eyes">
+              <div class="dudu-eye"></div>
+              <div class="dudu-eye"></div>
+            </div>
+            <div class="dudu-mouth"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="success-title">Yaaay!! 🥰</div>
+    <div class="success-subtitle">Bubu & Dudu are so happy!</div>
+    <div class="success-hearts">💕💗💕</div>
+  </div>
+</div>
+
+<script>
+  let noCount = 0;
+  let yesScale = 1;
+
+  const cuteMessages = [
+    "Are you sure? 🥺",
+    "Dudu is getting sad...",
+    "Dudu's heart is breaking 💔",
+    "Please reconsider! 🥹",
+    "But... but... we're so cute together!",
+    "Dudu promises to give you hugs forever!",
+    "You're making Dudu cry 😢",
+    "The yes button is right there →",
+    "Fine... but look how big YES is now!",
+    // "Okay this is getting ridiculous 😭",
+    "PLEASE 🥺🥺🥺",
+    "Dudu will share all the snacks!",
+    "Last chance... just kidding, try again 💕",
+  ];
+
+  function sayNo() {
+    noCount++;
+    yesScale *= 1.07;
+
+    const btnYes = document.getElementById('btnYes');
+    btnYes.style.transform = `scale(${yesScale})`;
+    btnYes.style.zIndex = 10;
+
+    // Shrink no button slightly
+    const btnNo = document.getElementById('btnNo');
+    btnNo.style.transform = `scale(${Math.max(0.4, 1 - noCount * 0.08)})`;
+    btnNo.style.opacity = Math.max(0.4, 1 - noCount * 0.06);
+
+    // Cute message
+    const msgEl = document.getElementById('cuteMessage');
+    const msgIndex = Math.min(noCount - 1, cuteMessages.length - 1);
+    msgEl.textContent = cuteMessages[msgIndex];
+    msgEl.style.animation = 'none';
+    msgEl.offsetHeight; // reflow
+    msgEl.style.animation = 'msgPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+    // Counter
+    const counter = document.getElementById('noCounter');
+    // counter.textContent = `You've said no ${noCount} time${noCount > 1 ? 's' : ''}... but YES keeps growing!`;
+  }
+
+  function sayYes() {
+    document.getElementById('proposalScreen').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    launchConfetti();
+  }
+
+  function launchConfetti() {
+    const colors = ['#ff6b95', '#ff2d6f', '#ffb6c8', '#ff4477', '#ffd4e0', '#ff8fab', '#e8407a'];
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.animationDelay = '0s';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }, i * 30);
+    }
+  }
+
+  // Create floating hearts background
+  function createFloatingHearts() {
+    const container = document.getElementById('heartsBg');
+    const hearts = ['♥', '♡', '❤', '💕', '💗'];
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.fontSize = (Math.random() * 20 + 12) + 'px';
+      heart.style.animationDuration = (Math.random() * 8 + 8) + 's';
+      heart.style.animationDelay = (Math.random() * 10) + 's';
+      container.appendChild(heart);
+    }
+  }
+
+  createFloatingHearts();
+</script>
+</body>
+</html>
